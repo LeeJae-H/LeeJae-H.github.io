@@ -2,7 +2,7 @@ name: LeeJae-H
 dp: https://github.com/LeeJae-H/LeeJae-H.github.io/assets/122717063/b2194399-a608-49ab-b672-1c8339324371
 description: "
   <p>
-    💡 개발자에게 필요한 기본적인 지식을 정리한 블로그 💡
+    💡 개발자를 위한 기본적이고 실용적인 지식을 정리한 블로그 💡
     <br>
     <br>
        아.. 이 블로그 다르다 !
@@ -12,5 +12,5 @@ description: "
 contact:
   - title: github
     url: https://github.com/LeeJae-H
-  - title: notion
-    url: https://sable-shroud-bdc.notion.site/d380fcee92df4e59b71121aacd26cafa?pvs=4
+  #- title: notion
+    #url: https://sable-shroud-bdc.notion.site/d380fcee92df4e59b71121aacd26cafa?pvs=4
