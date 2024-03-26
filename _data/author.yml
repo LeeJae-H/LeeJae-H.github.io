@@ -3,14 +3,12 @@ dp: https://github.com/LeeJae-H/LeeJae-H.github.io/assets/122717063/c5b76771-adf
 description: "
   <p>
     <br>
-    <br>
-    💡 <strong>한줄 한줄 꼼꼼히 쓴 백엔드 개발 공부 블로그</strong> 💡
-    <br>
+    💡 <strong>백엔드 개발 공부 블로그</strong> 💡
   </p>
   <br/>
 "
-contact:
-  - title: github
-    url: https://github.com/LeeJae-H
-  - title: notion
-    url: https://www.notion.so/d380fcee92df4e59b71121aacd26cafa?pvs=4
+# contact:
+#   - title: github
+#     url: https://github.com/LeeJae-H
+#   - title: notion
+#     url: https://www.notion.so/d380fcee92df4e59b71121aacd26cafa?pvs=4
