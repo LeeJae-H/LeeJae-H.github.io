@@ -1,28 +1,51 @@
-url: "https://leejae-h.github.io"
-baseurl: ""
 title: 개발is:e
-markdown: kramdown
+description: "디스크립션"
+logo_img: "/assets/img/favicon.webp"
+profile_img: "/assets/img/profile.webp"
 
-# for atom feed
-author:
-  name: Lee JaeHyung
-  email: dlwogud725@gmail.com
+# Social Links
+email: dlwogud725@gmail.com
+github_username: github
+instagram_username: instagram
+linkedin_username: linkedin
 
+# External API
+giscus_repo: "leejae-h/leejae-h.github.io"
+giscus_repoId: "R_kgDOK64KcA"
+giscus_category: "Q&A"
+giscus_categoryId: "DIC_kwDOK64KcM4Cj7VY"
+goatcounter_code: leejaeh
+google_analytics:
+
+# If your repo name follows the format "<user-name>.github.io", then leave the below blank.
+# Otherwise, set its value as "/<repo-name>". ex) baseurl: /myblog
+baseurl:
+
+# Build settings
 plugins:
-  - jemoji
-  - jekyll-seo-tag
-  - jekyll-sitemap
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-loading-lazy
 
-collections_dir: all_collections
+exclude:
+  - docs/
+
 collections:
-  posts:
+  pages:
     output: true
+    permalink: /:path.html
 
 defaults:
-  - scope:
-      path: "_posts"
+  -
+    scope:
+      path: ""
+      type: "pages"
     values:
-      layout: "post"
-      permalink: /posts/:title/
-exclude: ["sitemap.xml", "feed.xml", "LICENSE", "README.md"]
+      layout: "page"
+      date: "1900-01-01"
+
+# Markdown newline activator 
+kramdown:
+  input: GFM
+  hard_wrap: true
