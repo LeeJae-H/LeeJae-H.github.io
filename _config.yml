@@ -1,13 +1,13 @@
 title: 개발is:e
 description: "디스크립션"
 logo_img: "/assets/img/favicon.webp"
-profile_img: "/assets/img/profile.webp"
+profile_img: "/assets/img/download.webp"
 
 # Social Links
 email: dlwogud725@gmail.com
-github_username: github
-instagram_username: instagram
-linkedin_username: linkedin
+# github_username: github
+# instagram_username: instagram
+# linkedin_username: linkedin
 
 # External API
 giscus_repo: "leejae-h/leejae-h.github.io"
