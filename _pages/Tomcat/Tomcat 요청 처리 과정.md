@@ -4,7 +4,6 @@ tags:
     - tomcat
 date: "2024-04-30"
 thumbnail: "/assets/img/thumbnail/sample.png"
-bookmark: true
 ---
 
 # 서블릿 컨테이너 요청 처리 과정 (필터 X)

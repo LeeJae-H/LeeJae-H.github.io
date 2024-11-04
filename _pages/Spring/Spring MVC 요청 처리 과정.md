@@ -4,7 +4,6 @@ tags:
     - spring
 date: "2024-05-01"
 thumbnail: "/assets/img/thumbnail/sample.png"
-bookmark: true
 ---
 
 # Spring MVC 요청 처리 과정 (인터셉터 X)

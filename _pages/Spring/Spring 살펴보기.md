@@ -4,7 +4,6 @@ tags:
     - spring
 date: "2024-05-02"
 thumbnail: "/assets/img/thumbnail/sample.png"
-bookmark: true
 ---
 
 # Spring MVC와 DispatcherServlet

@@ -4,7 +4,6 @@ tags:
     - tomcat
 date: "2024-05-03"
 thumbnail: "/assets/img/thumbnail/sample.png"
-bookmark: true
 ---
 
 # Tomcat 설치 (Ubuntu)
