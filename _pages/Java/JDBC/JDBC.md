@@ -1,7 +1,7 @@
 ---
-title: "(JDBC) - JDBC 살펴보기"
+title: "JDBC"
 tags:
-    - jdbc
+    - java
 date: "2024-06-12"
 thumbnail: "/assets/img/thumbnail/sample.png"
 ---

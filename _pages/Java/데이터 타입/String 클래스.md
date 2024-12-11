@@ -1,5 +1,5 @@
 ---
-title: "(Java) String"
+title: "String 클래스"
 tags:
     - java
 date: "2024-12-01"
