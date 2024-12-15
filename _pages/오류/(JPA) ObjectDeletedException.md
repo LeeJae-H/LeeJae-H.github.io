@@ -45,24 +45,13 @@ public class ResponseExampleRepositoryTest {
 }
 ```
 
-### 에러 메세지
+### 오류 메세지
 - org.springframework.dao.InvalidDataAccessApiUsageException: org.hibernate.<span style="color:red">ObjectDeletedException</span>: deleted instance passed to merge
 
 ---
 ## 2. 오류 분석
 ### 코드 오류 부분
 ```java
-@BeforeEach
-void setUp() {
-    mockResponseExamples = List.of(  
-        createExample("피드뷰 - 예시 프롬프트1", PictureRatio.RATIO_SERO, null, FALSE), 
-        createExample("피드뷰 - 예시 프롬프트2", PictureRatio.RATIO_SERO, null, FALSE),
-        createExample("피드뷰 - 예시 프롬프트3", PictureRatio.RATIO_SERO, null, FALSE),
-        // ..(중략)
-    );
-    responseExampleRepository.saveAll(mockResponseExamples);
-}
-
 @Test
 @DisplayName("피드뷰 - 조건에 맞는 예시가 없을 때 빈 리스트가 반환되는지 검증")
 void findAllFeedViewWhenNoMatchingData_Then_Return_emptyList() {
