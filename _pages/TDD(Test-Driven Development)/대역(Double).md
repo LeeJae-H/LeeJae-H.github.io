@@ -296,7 +296,7 @@ public class UserRegisterTest {
     @Test
     void weakPassword() {
         // given
-        BDDMochito.given(mockPasswordChecker.checkPasswordWeak("pw"))
+        BDDMockito.given(mockPasswordChecker.checkPasswordWeak("pw"))
             .willReturn(true); 
 
         // when & then

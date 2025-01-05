@@ -300,7 +300,7 @@ thumbnail: "/assets/img/thumbnail/sample.png"
 - 마지막으로, src/test/java 소스 폴더에 위치한 PasswordStrength.java 파일과 PasswordStrengthMeter.java 파일을 배포 대상인 src/main/java로 이동해야 비로서 구현이 끝난다.
 <br>
 
-# TDD 흐름 Remind
+# TDD Remind
 
 ## 1. 테스트가 개발을 주도
 - **가장 먼저** 통과해야 할 테스트를 작성했다. 이 과정에서 구현을 생각하지 않았고, 테스트를 추가한 뒤 지금까지 작성한 테스트들을 통과시킬 만큼 기능을 구현했다. 테스트 코드가 추가되면서 **검증하는 범위가 넓어질수록 구현도 점점 완성**되어간다. 
