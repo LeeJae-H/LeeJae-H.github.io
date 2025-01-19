@@ -1,5 +1,5 @@
 ---
-title: "REST API E2E 테스트"
+title: "REST API E2E 테스트 (feat. REST-assured)"
 tags:
     - java
 date: "2025-01-14"
@@ -10,9 +10,29 @@ thumbnail: "/assets/img/thumbnail/sample.png"
 > **Dependencies**
     - *Spring Boot 3.4.1*
     - *Junit 5.10.5*
-    - *REST-Assured 5.3.1*
+    - *REST-assured 5.3.1*
 
 # REST API E2E 테스트 예시 - 스프링 부트
+> - `REST API E2E 테스트`를 작성하는 것은 **E2E 테스트를 자동화**하는 것이다. 우리가 일반적으로 Postman을 사용하여 API를 테스트하는 것과 거의 같은 흐름이며, 예시에서는 아래 두 가지 도구를 사용한다.
+    1. @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.**RANDOM_PORT**)
+    2. **REST-assured**
+
+## * @SpringBootTest의 MOCK vs RANDOM_PORT
+- **MOCK(default 값)** 
+    - 서블릿 컨테이너(Tomcat)를 실행하지 않는다. 즉, **서버 실행 없이 Spring Context만 로드**된다.
+    - 서버가 실행되지 않기 때문에 **가상으로 HTTP 요청과 응답을 테스트**한다. 이를 위해, MockMvc를 사용한다.
+- **RANDOM_PORT**
+    - 서블릿 컨테이너(Tomcat)를 실행한다. 즉, **임의의 포트에서 실제로 서버가 실행**된다.
+    - 서버가 실행되기 때문에 **실제 HTTP 요청을 보내고 응답을 받으며 테스트**한다. 이를 위해, REST-assured나 TestRestTemplate 등을 사용한다.
+
+## * MockMvc vs Rest-assured
+- **MockMvc**
+    - **DispatcherServlet을 통해 컨트롤러를 호출하고 응답을 확인**한다.
+    - 일반적으로, @WebMvcTest를 사용하는 `Controller 단위 테스트`나 @SpringBootTest(MOCK)을 사용하는 `Controller 통합 테스트`에서 사용된다.
+- **Rest-assured**
+    - **실제 HTTP 요청을 서버에 보내고 응답을 확인**한다.
+    - 일반적으로, @SpringBootTest(RANDOM_PORT)를 사용하는 `REST API E2E 테스트`에서 사용된다.
+
 ## 0. 테스트에 사용될 객체들
 ```java
 @Entity
@@ -138,7 +158,7 @@ public enum ErrorCode {
 }
 ```
 
-## 1. 스프링 부트의 내장 서버를 이용한 REST API E2E 테스트 
+## 1. 스프링 부트의 내장 서버를 이용한 REST API E2E 테스트 (feat. REST-assured)
 ```java
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
