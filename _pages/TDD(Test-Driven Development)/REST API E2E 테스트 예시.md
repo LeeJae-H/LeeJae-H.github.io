@@ -1,5 +1,5 @@
 ---
-title: "REST API E2E 테스트)"
+title: "REST API E2E 테스트"
 tags:
     - java
 date: "2025-01-14"
@@ -8,7 +8,7 @@ thumbnail: "/assets/img/thumbnail/sample.png"
 > 이전 글들을 모두 읽고 오자 !!
 
 > **Dependencies**
-    - *Spring Boot 3.3.6*
+    - *Spring Boot 3.4.1*
     - *Junit 5.10.5*
     - *REST-Assured 5.3.1*
 
@@ -31,6 +31,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Builder
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -39,8 +40,8 @@ public class User {
 ```
 ```java
 public interface UserRepository extends Repository<User, Long> {
-    Optional<User> findByEmail(String email);
     User save(User user);
+    Optional<User> findByEmail(String email);
     Optional<User> findById(Long id);
 }
 ```
@@ -51,18 +52,22 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User signUp(UserSignUpRequest userSignUpRequest) {
+    @Transactional
+    public Long signUp(UserSignUpRequest userSignUpRequest) {
         if(userRepository.findByEmail(userSignUpRequest.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("이미 가입된 사용자입니다.");
+            throw new ExpectedException(ErrorCode.ALREADY_EXISTED_USER);
         }
 
-        User newUser = new User(userSignUpRequest.getEmail(), userSignUpRequest.getPassword());
-        return userRepository.save(newUser);
+        User user = User.builder()
+                            .email(userSignUpRequest.getEmail())
+                            .password(userSignUpRequest.getPassword())
+                            .build();
+        return userRepository.save(user).getId();
     }
 
     public UserInfoResponse getUserInfo(Long userId) {
         User foundUser = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
+                .orElseThrow(() -> new ExpectedException(ErrorCode.USER_NOT_FOUND));
 
         return new UserInfoResponse(foundUser.getEmail());
     }
@@ -78,14 +83,16 @@ public class UserController {
 
     // 회원 가입
     @PostMapping("/signup")
-    public User signUp(@RequestBody UserSignUpRequest userSignUpRequest) {
-        return userService.signUp(userSignUpRequest);
+    public ResponseEntity<Long> signUp(@RequestBody UserSignUpRequest userSignUpRequest) {
+        Long userId = userService.signUp(userSignUpRequest);
+        return new ResponseEntity<>(userId, HttpStatus.CREATED);
     }
 
     // 내 정보 보기
     @GetMapping("/{id}")
-    public UserInfoResponse getUserInfo(@PathVariable("id") Long id) {
-        return userService.getUserInfo(id);
+    public ResponseEntity<UserInfoResponse> getUserInfo(@PathVariable("id") Long id) {
+        UserInfoResponse userInfo = userService.getUserInfo(id);
+        return ResponseEntity.ok(userInfo);
     }
 }
 ```
@@ -112,12 +119,29 @@ public class UserInfoResponse {
     }
 }
 ```
+```java
+@Getter
+@RequiredArgsConstructor
+public class ExpectedException extends RuntimeException {
+    private final ErrorCode errorCode;
+}
+```
+```java
+@Getter
+@RequiredArgsConstructor
+public enum ErrorCode {
+    ALREADY_EXISTED_USER("ALREADY_EXISTED_USER", "이미 존재하는 유저입니다."),
+    USER_NOT_FOUND("USER_NOT_FOUND", "존재하지 않는 유저입니다.");
+
+    private final String errorCode;
+    private final String errorMessage;
+}
+```
 
 ## 1. 스프링 부트의 내장 서버를 이용한 REST API E2E 테스트 
 ```java
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})  // Spring Security 비활성화
 public class UserApiE2ETest {
 
     @Autowired
@@ -136,9 +160,10 @@ public class UserApiE2ETest {
     }
 
     @Test
-    @DisplayName("회원 가입")
-    void signUp() {
-        UserSignUpRequest signUpRequest = new UserSignUpRequest("test@gmail.com", "test123");
+    @DisplayName("회원 가입 성공")
+    void signUp_Success() {
+        UserSignUpRequest signUpRequest 
+                    = new UserSignUpRequest("joyuri@gmail.com", "yuri123");
 
         RestAssured.given()
                         .contentType(ContentType.JSON)
@@ -146,16 +171,15 @@ public class UserApiE2ETest {
                     .when()
                         .post("/api/users/signup")
                     .then()
-                        .statusCode(200)
-                        .body("email", Matchers.equalTo("test@gmail.com"))
-                        .body("password", Matchers.equalTo("test123"));
+                        .statusCode(201)
+                        .body("", Matchers.greaterThanOrEqualTo(1));
     }
 
     @Test
-    @DisplayName("내 정보 찾기")
-    void getUserInfo() {
+    @DisplayName("내 정보 찾기 성공")
+    void getUserInfo_Success() {
         // Given
-        User existingUser = new User("test@gmail.com", "test123");
+        User existingUser = User.builder().email("joyuri@gmail.com").password("yuri123").build();
         Long userId = userRepository.save(existingUser).getId();
 
         // When & Then
@@ -165,7 +189,7 @@ public class UserApiE2ETest {
                         .get("/api/users/{id}")
                     .then()
                         .statusCode(200)
-                        .body("email", Matchers.equalTo("test@gmail.com"));
+                        .body("email", Matchers.equalTo("joyuri@gmail.com"));
     }
 }
 ```
