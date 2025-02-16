@@ -1,40 +1,37 @@
 ---
-title: "(Tomcat) - ServletContext, ServletConfig와 서블릿 초기화 메소드"
+title: "(Tomcat) - Servlet Container (feat. ServletContext, ServletConfig)"
 tags:
     - tomcat
 date: "2024-05-06"
 thumbnail: "/assets/img/thumbnail/sample.png"
 ---
-
-<center><img src="https://github.com/LeeJae-H/LeeJae-H.github.io/assets/122717063/2a3117e0-853e-46d4-b1c2-edec22a1b10f" width="700" height="350"></center>
-
-- 서블릿 컨테이너와 웹 애플리케이션
-    - 서블릿 컨테이너는 웹 애플리케이션을 실행하고 관리하는 데 사용된다.
-    - 서블릿 컨테이너는 여러 개의 웹 애플리케이션을 호스팅할 수 있으며, 웹 애플리케이션은 서블릿 컨테이너 내에서 독립적으로 실행된다. 
+# 서블릿 컨테이너와 웹 애플리케이션
+<img src="https://github.com/LeeJae-H/LeeJae-H.github.io/assets/122717063/2a3117e0-853e-46d4-b1c2-edec22a1b10f" style="width:500px;" />
+- 서블릿 컨테이너는 웹 애플리케이션을 실행하고 관리하는 데 사용된다.
+- 서블릿 컨테이너는 여러 개의 웹 애플리케이션을 호스팅할 수 있으며, 웹 애플리케이션은 서블릿 컨테이너 내에서 독립적으로 실행된다. 
 
 # ServletContext
 ```java
-public interface ServletContext 
-    {
-        ...
-        String getInitParameter(String var1);
-        Enumeration<String> getInitParameterNames();
-        ...
-        URL getResource(String var1) throws MalformedURLException;
-        InputStream getResourceAsStream(String var1);
-        ...
-        Object getAttribute(String var1);
-        void setAttribute(String var1, Object var2);
-        void removeAttribute(String var1);
-        ...
-        RequestDispatcher getRequestDispatcher(String var1);
-        ...
-        void log(String var1);
-        void log(String var1, Throwable var2);
-        ...
-    }
+public interface ServletContext {
+    ...
+    String getInitParameter(String var1);
+    Enumeration<String> getInitParameterNames();
+    ...
+    URL getResource(String var1) throws MalformedURLException;
+    InputStream getResourceAsStream(String var1);
+    ...
+    Object getAttribute(String var1);
+    void setAttribute(String var1, Object var2);
+    void removeAttribute(String var1);
+    ...
+    RequestDispatcher getRequestDispatcher(String var1);
+    ...
+    void log(String var1);
+    void log(String var1, Throwable var2);
+    ...
+}
 ```
-- <span style="color:blueviolet">ServletContext 인터페이스는 서블릿이 서블릿 컨테이너와 통신하는 데 사용되는 메소드들을 정의한다.</span>
+- **ServletContext 인터페이스**는 서블릿이 서블릿 컨테이너와 통신하는 데 사용되는 메소드들을 정의한다.
     - ServletContext 인터페이스를 구현한 클래스는 ApplicationContext(Facade) 클래스이다. (org.apache.catalina.core.ApplicationContext)  
     - <span style="color:red">ServletContext를 **서블릿 컨테이너**라고 볼 수 있다.</span>  
 <br>
@@ -46,13 +43,12 @@ public interface ServletContext
 
 # ServletConfig
 ```java
-public interface ServletConfig 
-    {
-        String getServletName();
-        String getInitParameter(String var1);
-        Enumeration<String> getInitParameterNames();
-        ServletContext getServletContext();
-    }
+public interface ServletConfig {
+    String getServletName();
+    String getInitParameter(String var1);
+    Enumeration<String> getInitParameterNames();
+    ServletContext getServletContext();
+}
 ```
 - <span style="color:blueviolet">ServletConfig 인터페이스는 서블릿 컨테이너가 서블릿을 초기화할 때 서블릿에게 전달하는 정보에 대한 메소드들을 정의한다.</span>
     - ServletContext 인터페이스를 구현한 클래스는 StandardWrapper(Facade) 클래스이다. (org.apache.catalina.core.StandardWrapper)  
@@ -143,9 +139,7 @@ public abstract class GenericServlet implements Servlet, ServletConfig, Serializ
     ```
 
 ---
-<details>
-<summary><span style="color:gray">참고 자료</span></summary>
-<div markdown="1">
+- 참고 자료
 https://tomcat.apache.org/tomcat-8.0-doc/servletapi/javax/servlet/ServletContext.html  
 https://tomcat.apache.org/tomcat-8.0-doc/servletapi/javax/servlet/ServletConfig.html  
 https://javaee.github.io/javaee-spec/javadocs/javax/servlet/Servlet.html  
@@ -157,5 +151,3 @@ https://velog.io/@cocodori/ServletContext-ServletConfig
 https://kgvovc.tistory.com/38  
 https://blog.naver.com/crint/90068104505  
 https://codevang.tistory.com/193  
-</div>
-</details>

@@ -1,4 +1,4 @@
----
+<!-- ---
 title: "stdio, stdout, stderr"
 tags:
     - term
@@ -17,4 +17,4 @@ background - 서버 프로그램(데몬)
 1. nohub java -jar 0.0.1-SNAPSHOT.jar > app.log 2>&1 & 
 	- 2>&1 는 stderr를 stdout에 포함해서 기록해라. 그리고 & 는 백그라운드로 실행해라.
 
-2. ps -aef | grep java
+2. ps -aef | grep java -->
