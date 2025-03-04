@@ -5,7 +5,7 @@ tags:
 date: "2024-12-08"
 thumbnail: "/assets/img/thumbnail/sample.png"
 ---
-> ***TDD(Test-Driven Development)**는 매우 짧은 개발 사이클을 반복하는 소프트웨어 개발 프로세스 중 하나이다. 개발자는 먼저 요구사항을 검증하는 자동화된 테스트 케이스를 작성한다. 그런 후에, 그 테스트 케이스를 통과하기 위한 최소한의 코드를 생성한다. 마지막으로 작성한 코드를 표준에 맞도록 리팩토링한다.* <span style="color:gray">(feat. 위키백과)</span>
+> ***TDD(Test-Driven Development)**는 매우 짧은 개발 사이클을 반복하는 소프트웨어 개발 프로세스이다. 먼저, 개발자는 먼저 요구사항을 검증하는 자동화된 테스트 케이스를 작성한다. 그런 후에, 그 테스트 케이스를 통과하기 위한 최소한의 코드를 생성한다. 마지막으로 작성한 코드를 표준에 맞도록 리팩토링한다.* <span style="color:gray">(feat. 위키백과)</span>
 
 # TDD 흐름
 <img src="https://github.com/user-attachments/assets/71820640-3cc8-4aea-9d42-c99ff18f6972" style="width:700px;" />
